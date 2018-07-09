@@ -80,12 +80,12 @@ Responses will be a JSON object with the properties `count` (integer) and `items
 
 - Sponsor
 ```
-id: integer,
-name: string,
-image: string,
-link: string,
-premium: boolean,
-description: string,
-sort: integer,
-isPartner: boolean
+    id: integer,
+    name: string,
+    image: string,
+    link: string,
+    premium: boolean,
+    description: string,
+    sort: integer,
+    isPartner: boolean
 ```
