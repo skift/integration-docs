@@ -89,3 +89,129 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     sort: integer,
     isPartner: boolean
 ```
+
+## Examples
+- Retrieve the whole schedule for an event
+
+```http
+GET /wp-json/forum/v1/schedule/?eventId=281682 HTTP/1.1
+Host: forum.skift.com
+Authorization: Bearer #################
+```
+
+Response:
+```json
+{
+    "count": 36,
+    "items": [
+        {
+            "id": 1,
+            "name": "Welcome",
+            "location": "",
+            "eventDate": "2018-09-27 08:45:00",
+            "hideSessionTime": false,
+            "eventEndDate": null,
+            "speakers": [
+                {
+                    "id": 29,
+                    "company": "Skift",
+                    "title": "Founder & CEO",
+                    "slug": "Rafat-Ali",
+                    "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/06/rafat.jpg",
+                    "showOnHP": false,
+                    "branded": false,
+                    "bio": "",
+                    "sort": 9999,
+                    "name": "Rafat Ali"
+                }
+            ],
+            "otherSpeaker": "",
+            "moderator": "",
+            "sponsor": 0,
+            "speaker_tbd": false,
+            "preEvent": false,
+            "description": ""
+        }
+    ]
+}
+```
+
+- Retrieve event speakers
+```http
+GET /wp-json/forum/v1/speakers/?eventId=281682 HTTP/1.1
+Host: forum.skift.com
+Authorization: Bearer #################
+```
+
+Response:
+```json
+{
+    "count": 30,
+    "items": [
+        {
+            "id": 1,
+            "company": "Hyatt Hotels Corporation",
+            "title": "President and CEO",
+            "slug": "Mark-Hoplamazian",
+            "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/01/Mark-Hoplamazian.jpg",
+            "showOnHP": true,
+            "branded": false,
+            "bio": "<p>Mark S. Hoplamazian was appointed to the board of directors in November 2006 and named president and chief executive officer of&nbsp;Hyatt Hotels Corporation in December 2006. Prior to being appointed to his present position, Hoplamazian served as president of The Pritzker Organization (TPO), the principal financial and investment adviser for Pritzker family business interests. During his 17-year tenure with TPO, he&nbsp;served as adviser to various Pritzker family-owned companies, including Hyatt Hotels Corporation and its predecessors.</p>",
+            "sort": 9999,
+            "name": "Mark Hoplamazian"
+        },
+        {
+            "id": 2,
+            "company": "Ian Schrager Company",
+            "title": "Founder",
+            "slug": "Ian-Schrager",
+            "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/01/500x500Ian-Schrager.jpg",
+            "showOnHP": true,
+            "branded": false,
+            "bio": "<p>For over 5 decades, since the 70s, Ian Schrager has achieved international recognition for concepts that have revolutionized the entertainment, hospitality, food and beverage, retail and residential industries. Few people, if any, have had the impact on popular culture that Ian Schrager has.</p>",
+            "sort": 9999,
+            "name": "Ian Schrager"
+        }
+    ]
+}
+```
+
+- Retrieve brand talk speakers
+```http
+GET /forum/wp-json/forum/v1/speakers/branded/1?eventId=281682 HTTP/1.1
+Host: forum.skift.com
+Authorization: Bearer #################
+```
+
+Response:
+```json
+{
+    "count": 2,
+    "items": [
+        {
+            "id": 20,
+            "company": "Travelsify",
+            "title": "Co-Founder and CEO",
+            "slug": "Bruno-Chauvat",
+            "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/04/Bruno-Chauvat-copy.jpg",
+            "showOnHP": false,
+            "branded": true,
+            "bio": "<p>Bruno Chauvat is the co-founder and CEO of Travelsify, the world\\'s first travel product DNA platform, powering personalized voice search for online travel agencies, metasearch, and hotel groups, thanks to its unprecedented database of hotel DNA and restaurant DNA.</p>",
+            "sort": 9999,
+            "name": "Bruno Chauvat"
+        },
+        {
+            "id": 21,
+            "company": "VisitDallas",
+            "title": "President and CEO",
+            "slug": "phillip-jones",
+            "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/04/Phillip-Jones-Headshot_Visit-Dallas.jpg",
+            "showOnHP": false,
+            "branded": true,
+            "bio": "<p>Phillip Jones joined VisitDallas as president and CEO in 2003. Under Jones’ direction, the Dallas-Fort Worth area is now the No. 1 visitor destination in the state, and Dallas is a top 10 convention city nationwide</p>",
+            "sort": 9999,
+            "name": "Phillip  Jones"
+        }
+    ]
+}
+```
