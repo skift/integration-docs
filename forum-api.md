@@ -27,7 +27,7 @@ There are four resources to query:
 A `GET` request to a resource will retrieve the entire list of entries. Individual items can be retrieved by ID, i.e. `GET` `speakers/id/1`.
 
 Each table is searchable by providing parameters in this format:
-`${RESOURCE}/${KEY}/$VALUE`. For example, `GET` `sponsors/premium/0?eventId=281682` will retrieve all "premium" sponsors for the event with ID 281682. The `${KEY}` must be a valid model attribute, or else the API will return a `400` error.
+`${RESOURCE}/${KEY}/$VALUE`. For example, `GET` `sponsors/premium/0?eventId=281682` will retrieve all "premium" sponsors for the event with ID 281682. The `${KEY}` must be a valid model attribute, or else the API will return a `404` error.
 
 ### Responses
 Responses will be a JSON object with the properties `count` (integer) and `items` (array of objects).
@@ -49,8 +49,7 @@ Responses will be a JSON object with the properties `count` (integer) and `items
 - Speaker
 ```
     id: integer,
-    fname: string,
-    lname: string,
+    name: string,
     company: string,
     title: string,
     slug: string,
