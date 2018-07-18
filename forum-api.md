@@ -75,6 +75,7 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     sponsor: integer,
     speaker_tbd: boolean,
     preEvent: boolean,
+    isBreak: boolean,
     description: string
 ```
 
@@ -130,6 +131,7 @@ Response:
             "sponsor": 0,
             "speaker_tbd": false,
             "preEvent": false,
+            "isBreak": false,
             "description": ""
         }
     ]
