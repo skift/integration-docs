@@ -5,13 +5,12 @@ This API provides access to Forum information like speakers, sponsors, and sched
 
 The Skift Forum API is a read-only JSON REST API with token-based authentication. The only accepted method is `GET`.
 
-The base URL of the API is `https://forum.skift.com/wp-json/forum/v1`. All requests must include the parameter `eventId` with a valid eTouches event ID.
+The base URL of the API is `https://forum.skift.com/wp-json/forum/v1`. All requests except for `GET` `/events` must include the parameter `eventId` with a valid eTouches event ID.
 
 
 
 ## Authentication
 The API is authenticated using a bearer token. The token is static and will be provided by the Skift team.
-
 
 
 ## Usage
@@ -21,12 +20,18 @@ There are four resources to query:
 - `/speakers`
 - `/schedule`
 - `/sponsors`
+- `/events`
 
 ### Querying
+
+#### Querying Events
+The `/events` endpoint returns an array of objects with active events. No other parameters are required/permitted. This list is completely static -- event properties do not change once they are set. The `eventId` specified in the API response is the same identifier that should be used to retrieve all other forum information.
+
+#### All other queries
 A `GET` request to a resource will retrieve the entire list of entries. Individual items can be retrieved by ID, i.e. `GET` `speakers/id/1`.
 
 Each table is searchable by providing parameters in this format:
-`${RESOURCE}/${KEY}/$VALUE`. For example, `GET` `sponsors/premium/1?eventId=281682` will retrieve all "premium" sponsors for the event with ID 281682. The `${KEY}` must be a valid model attribute, or else the API will return a `404` error.
+`${RESOURCE}/${KEY}/$VALUE`. For example, `GET` `sponsors/premium/0?eventId=281682` will retrieve all "premium" sponsors for the event with ID 281682. The `${KEY}` must be a valid model attribute, or else the API will return a `404` error.
 
 To retrieve "Partners," which were previously maintained in their own table, query `sponsors/isPartner/1`.
 
@@ -46,6 +51,15 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     - I broke something (sorry)
 
 ## Models
+- Event
+```
+    eventName: string,
+    eventId: integer,
+    date: string,
+    location: string,
+    venue: string,
+    icon: string
+```
 
 - Speaker
 ```
@@ -75,7 +89,6 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     sponsor: integer,
     speaker_tbd: boolean,
     preEvent: boolean,
-    isBreak: boolean,
     description: string
 ```
 
@@ -92,6 +105,71 @@ Responses will be a JSON object with the properties `count` (integer) and `items
 ```
 
 ## Examples
+- Retrieve basic information about all events
+```http
+GET /wp-json/forum/v1/events HTTP/1.1
+Host: forum.skift.com
+Authorization: Bearer #################
+```
+
+Response:
+```json
+{
+    "count": 1,
+    "items": [
+        {
+            "eventName": "Skift Global Forum New York",
+            "eventId": 281682,
+            "date": "September 27-28, 2018",
+            "location": "New York City",
+            "venue": "Jazz at Lincoln Center’s Frederick P. Rose Hall",
+            "icon": null
+        }
+    ]
+}
+```
+
+- Retrieve event speakers
+```http
+GET /wp-json/forum/v1/speakers/?eventId=281682 HTTP/1.1
+Host: forum.skift.com
+Authorization: Bearer #################
+```
+
+Response:
+```json
+{
+    "count": 30,
+    "items": [
+        {
+            "id": 1,
+            "company": "Hyatt Hotels Corporation",
+            "title": "President and CEO",
+            "slug": "Mark-Hoplamazian",
+            "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/01/Mark-Hoplamazian.jpg",
+            "showOnHP": true,
+            "branded": false,
+            "bio": "<p>Mark S. Hoplamazian was appointed to the board of directors in November 2006 and named president and chief executive officer of&nbsp;Hyatt Hotels Corporation in December 2006. Prior to being appointed to his present position, Hoplamazian served as president of The Pritzker Organization (TPO), the principal financial and investment adviser for Pritzker family business interests. During his 17-year tenure with TPO, he&nbsp;served as adviser to various Pritzker family-owned companies, including Hyatt Hotels Corporation and its predecessors.</p>",
+            "sort": 9999,
+            "name": "Mark Hoplamazian"
+        },
+        {
+            "id": 2,
+            "company": "Ian Schrager Company",
+            "title": "Founder",
+            "slug": "Ian-Schrager",
+            "image": "https://forum.skift.com/newyork/wp-content/uploads/sites/6/2018/01/500x500Ian-Schrager.jpg",
+            "showOnHP": true,
+            "branded": false,
+            "bio": "<p>For over 5 decades, since the 70s, Ian Schrager has achieved international recognition for concepts that have revolutionized the entertainment, hospitality, food and beverage, retail and residential industries. Few people, if any, have had the impact on popular culture that Ian Schrager has.</p>",
+            "sort": 9999,
+            "name": "Ian Schrager"
+        }
+    ]
+}
+```
+
+
 - Retrieve the whole schedule for an event
 
 ```http
@@ -131,7 +209,6 @@ Response:
             "sponsor": 0,
             "speaker_tbd": false,
             "preEvent": false,
-            "isBreak": false,
             "description": ""
         }
     ]
