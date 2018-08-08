@@ -27,6 +27,8 @@ There are four resources to query:
 #### Querying Events
 The `/events` endpoint returns an array of objects with active events. No other parameters are required/permitted. This list is completely static -- event properties do not change once they are set. The `eventId` specified in the API response is the same identifier that should be used to retrieve all other forum information.
 
+The `icons` key is an object with information on both the color and white-only versions of the icons. **The color version is intended to be used in the event picker grid. The white version is intended for use in the navigation sidebar.** The `location` property has a shorthand of where the icons should be used.
+
 #### All other queries
 A `GET` request to a resource will retrieve the entire list of entries. Individual items can be retrieved by ID, i.e. `GET` `speakers/id/1`.
 
@@ -58,7 +60,18 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     date: string,
     location: string,
     venue: string,
-    icon: string
+    icons: Object {
+        color: Object {
+            "path": string,
+            "height": integer,
+            "width": integer
+        },
+        white: Object {
+            "path": string,
+            "height": integer,
+            "width": integer
+        }
+    }
 ```
 
 - Speaker
@@ -123,7 +136,18 @@ Response:
             "date": "September 27-28, 2018",
             "location": "New York City",
             "venue": "Jazz at Lincoln Center’s Frederick P. Rose Hall",
-            "icon": null
+            "icons": {
+                "color": {
+                    "path": "https://forum.skift.com/wp-content/mu-plugins/forum-api/assets/nyc-color.png",
+                    "height": 200,
+                    "width": 200
+                },
+                "white": {
+                    "path": "",
+                    "height": 200,
+                    "width": 200
+                }
+            }
         }
     ]
 }
