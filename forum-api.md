@@ -111,9 +111,7 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     name: string,
     image: string,
     link: string,
-    premium: boolean,
     description: string,
-    sort: integer,
     isPartner: boolean
 ```
 
