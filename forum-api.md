@@ -35,7 +35,7 @@ A `GET` request to a resource will retrieve the entire list of entries. Individu
 Each table is searchable by providing parameters in this format:
 `${RESOURCE}/${KEY}/$VALUE`. For example, `GET` `sponsors/premium/0?eventId=281682` will retrieve all "premium" sponsors for the event with ID 281682. The `${KEY}` must be a valid model attribute, or else the API will return a `404` error.
 
-To retrieve "Partners," which were previously maintained in their own table, query `sponsors/isPartner/1`.
+~~To retrieve "Partners," which were previously maintained in their own table, query `sponsors/isPartner/1`.~~ **NOTE**: As of 8/21 there is no support for "Partner" information.
 
 ### Responses
 Responses will be a JSON object with the properties `count` (integer) and `items` (array of objects).
@@ -112,7 +112,7 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     image: string,
     link: string,
     description: string,
-    isPartner: boolean
+    isPartner: boolean [deprecated]
 ```
 
 ## Examples
