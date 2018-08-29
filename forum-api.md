@@ -29,6 +29,8 @@ The `/events` endpoint returns an array of objects with active events. No other 
 
 The `icons` key is an object with information on both the color and white-only versions of the icons. **The color version is intended to be used in the event picker grid. The white version is intended for use in the navigation sidebar.** The `location` property has a shorthand of where the icons should be used.
 
+The `ads` key is an object with keys for each ad location. Each ad slot has the URI of an image and ad campaign link.
+
 #### All other queries
 A `GET` request to a resource will retrieve the entire list of entries. Individual items can be retrieved by ID, i.e. `GET` `speakers/id/1`.
 
@@ -62,20 +64,20 @@ Responses will be a JSON object with the properties `count` (integer) and `items
     venue: string,
     icons: Object {
         color: Object {
-            "path": string,
-            "height": integer,
-            "width": integer
+            path: string,
+            height: integer,
+            width: integer
         },
         white: Object {
-            "path": string,
-            "height": integer,
-            "width": integer
+            path: string,
+            height: integer,
+            width: integer
         }
     },
     ads: Object {
         interstitial: Object {
-            "image": string,
-            "link": string
+            image: string,
+            link: string
         }
     }
 ```
