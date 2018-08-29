@@ -71,6 +71,12 @@ Responses will be a JSON object with the properties `count` (integer) and `items
             "height": integer,
             "width": integer
         }
+    },
+    ads: Object {
+        interstitial: Object {
+            "image": string,
+            "link": string
+        }
     }
 ```
 
